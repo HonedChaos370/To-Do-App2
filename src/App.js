@@ -50,8 +50,13 @@ export default class App extends Component {
     });
   };
 
-  onRemoveTodo = index => {
+  onDeleteTodo = index => {
     const { todos } = this.state;
+
+    this.setState({
+      ...this.state,
+      todos: todos.filter(todo => todo.id !== index)
+    });
   };
 
   render() {
@@ -73,7 +78,11 @@ export default class App extends Component {
           placeholder={"Type a todo, then hit enter!"}
           onSubmitEditing={this.onAddTodo}
         />
-        <List list={visibleTodos} onToggleTodo={this.onToggleTodo} />
+        <List
+          list={visibleTodos}
+          onToggleTodo={this.onToggleTodo}
+          onDeleteTodo={this.onDeleteTodo}
+        />
         <Footer
           currentFilter={this.state.visibilityFilter}
           onUpdateVisibilityFilter={this.onUpdateVisibilityFilter}
